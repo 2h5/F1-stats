@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import './App.css'
 
 function App() {
@@ -15,6 +16,12 @@ function App() {
   const [pitStops, setPitStops] = useState([])
 
   const selectedDriverInfo = drivers.find(driver => driver.driver_number == selectedDriver)
+
+  const formatLapTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = (seconds % 60).toFixed(3).padStart(6, '0')
+    return `${minutes}:${remainingSeconds}`
+  }
 
   const validLaps = laps.filter(lap => lap.lap_duration)
   let fastestLap = validLaps[0]
@@ -133,6 +140,25 @@ function App() {
       </label>
       <br />
       <br />
+
+      {laps.length > 0 && (
+        <div className="chart-section">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart key={selectedDriver} data={laps} margin={{ top: 10, right: 24, bottom: 16, left: 24 }}>
+              <XAxis dataKey="lap_number" interval={2} />
+              <YAxis tickFormatter={formatLapTime} width={80} domain={['dataMin', 'dataMax']} />
+              <Tooltip formatter={(value) => [formatLapTime(value), 'Lap Time']} />
+              <Line
+                type="monotone"
+                dataKey="lap_duration"
+                stroke={`#${selectedDriverInfo?.team_colour || '7300ff'}`}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      )}
+
+      {/*
       {laps.length > 0 && (
         <div className="table-section">
           <h2>Lap Data</h2>
@@ -163,7 +189,9 @@ function App() {
       </table>
     </div>
       )}
+    */}
+
+
       </div>
   )}
-  
 export default App
