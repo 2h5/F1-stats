@@ -14,6 +14,8 @@ function App() {
   const [stints, setStints] = useState([])
   const [pitStops, setPitStops] = useState([])
 
+  const selectedDriverInfo = drivers.find(driver => driver.driver_number == selectedDriver)
+
   const validLaps = laps.filter(lap => lap.lap_duration)
   let fastestLap = validLaps[0]
   for (const lapToCheck of validLaps) {
@@ -62,11 +64,26 @@ function App() {
   return (
     <div>
       <h1>F1 Stats</h1>
+      {selectedDriverInfo?.headshot_url && (
+      <img
+      src={selectedDriverInfo.headshot_url}
+      alt={selectedDriverInfo.full_name}
+      />
+        )}
       <br /> 
       <label>
+      Pick a year:
         <select 
         value={selectedYear} 
-        onChange={(e) => setSelectedYear(e.target.value)}>
+        onChange={(e) => {
+          setSelectedYear(e.target.value)
+          setSelectedSession('')
+          setSelectedDriver('')
+          setDrivers([])
+          setLaps([])
+          setStints([])
+          setPitStops([])
+        }}>
         <option value="" disabled>Pick a year</option>
         <option value="2023">2023</option>
         <option value="2024">2024</option>
@@ -75,13 +92,18 @@ function App() {
       </select>
       </label>
 
-
       <label>
           Pick a session:
           <select
           name = "selectedSession"
           value = {selectedSession}
-          onChange = {(e) => setSelectedSession(e.target.value)}
+          onChange={(e) => {
+            setSelectedSession(e.target.value)
+            setSelectedDriver('')
+            setLaps([])
+            setStints([])
+            setPitStops([])
+          }}
           >
             <option value= "" disabled>Pick a session</option>
             {sessions.map(session => (
@@ -109,9 +131,6 @@ function App() {
           ))}
         </select>
       </label>
-
-
-
       <br />
       <br />
       {laps.length > 0 && (

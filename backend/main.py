@@ -22,6 +22,9 @@ def get_drivers(session_key: int):
         drivers.append({
             "driver_number": driver.get("driver_number"),
             "full_name": driver.get("full_name"),
+            "headshot_url": driver.get("headshot_url"),
+            "team_name": driver.get("team_name"),
+            "team_colour": driver.get("team_colour"),
         })
     return drivers
 
