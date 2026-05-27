@@ -1,0 +1,35 @@
+.chart-section {
+  width: 100%;
+  height: 360px;
+  margin-top: 24px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.chart-section .recharts-responsive-container {
+  width: 100% !important;
+}
+
+.lap-tooltip {
+  padding: 10px 12px;
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+.lap-tooltip-lap {
+  margin-bottom: 8px;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.lap-tooltip-fastest {
+  margin-bottom: 6px;
+  color: #a855f7;
+  font-weight: 700;
+}
+
+.lap-tooltip-label {
+  color: #ff0000;
+}
