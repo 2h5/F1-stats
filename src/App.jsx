@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import LapTimeChart from './components/LapTimeChart/LapTimeChart'
+import TyreStrategyChart from './components/TyreStrategyChart/TyreStrategyChart'
 import './App.css'
 
 function App() {
@@ -124,6 +125,7 @@ function App() {
           ))}
         </select>
       </label>
+
       <br />
       <br />
 
@@ -134,6 +136,20 @@ function App() {
           teamColour={selectedDriverInfo?.team_colour}
         />
       )}
+      <br />
+      <br />
+      <label>
+        Tire strategy:
+      {stints.length > 0 && (
+        <TyreStrategyChart
+          stints={stints}
+        />
+      )}
+      </label>
+      <br />
+      <br />
+      
+      
 
       {/*
       {laps.length > 0 && (
